@@ -12,9 +12,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from typing import List
 from flask_gravatar import Gravatar
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
+# from dotenv import load_dotenv
+#
+# load_dotenv()
 
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, PostComment
