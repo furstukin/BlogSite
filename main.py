@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from typing import List
 from flask_gravatar import Gravatar
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Use for local testing only, will crash Railway
 # load_dotenv()
