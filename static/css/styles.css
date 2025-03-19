@@ -10678,6 +10678,7 @@ header.masthead {
   background-size: cover;
   background-attachment: scroll;
 }
+
 header.masthead:before {
   content: "";
   position: absolute;
@@ -10852,4 +10853,9 @@ header.masthead .post-heading .meta a {
 .flash {
   color: #ee6f57;
   text-align: center;
+}
+
+/* Avoid CKE deprecation warning */
+#cke_notifications_area_body {
+    display: none !important;
 }

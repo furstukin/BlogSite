@@ -100,7 +100,7 @@ login_manager.init_app(app)
 # Create a user_loader callback
 @login_manager.user_loader
 def load_user(user_id: str) -> User | None:
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
 
 
 @app.context_processor # This injects the year as a constant or global variable callable in any html code within the app. See footer copyright section for it's use.
