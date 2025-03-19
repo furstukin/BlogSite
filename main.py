@@ -14,7 +14,8 @@ from flask_gravatar import Gravatar
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Use for local testing only, will crash Railway
+# load_dotenv()
 
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, PostComment
