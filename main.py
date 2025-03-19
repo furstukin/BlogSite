@@ -38,6 +38,7 @@ class Base(DeclarativeBase):
     pass
 
 DB_URL = os.getenv("DATABASE_URL")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 
 db = SQLAlchemy(model_class=Base)
