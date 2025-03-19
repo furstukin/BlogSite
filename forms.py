@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditorField
-from wtforms.fields.simple import StringField, PasswordField, SubmitField, EmailField
+from wtforms.fields.simple import StringField, PasswordField, SubmitField, EmailField, TelField
 from wtforms.validators import DataRequired, Length
 
 
@@ -19,13 +19,20 @@ class RegisterForm(FlaskForm):
     l_name = StringField(' Last Name')
     email = EmailField("Email*", validators=[DataRequired()])
     password = PasswordField("Password*", validators=[DataRequired(), Length(min=8, message="Password must be at least 8 characters long.")])
-    submit = SubmitField("Let Me In!")
+    submit = SubmitField("Submit Registration")
 
 class LoginForm(FlaskForm):
     email = EmailField("Email", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Let Me In!")
+    submit = SubmitField("Sign In")
 
 class PostComment(FlaskForm):
     body = CKEditorField("Comment on post", validators=[DataRequired()])
     submit = SubmitField("Post Comment")
+
+class ContactMe(FlaskForm):
+    name = StringField('Name*', validators=[DataRequired()])
+    email = EmailField("Email*", validators=[DataRequired()])
+    phone = TelField('Telephone')
+    body = CKEditorField("Message*", validators=[DataRequired()])
+    submit = SubmitField("Send Email")

@@ -12,12 +12,20 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from typing import List
 from flask_gravatar import Gravatar
 import os
+from contact_manager import ContactManager
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from dotenv import load_dotenv
 
+
 load_dotenv()
+contact_manager = ContactManager()
+
+MY_EMAIL = os.getenv('MY_EMAIL')
+MY_EMAIL2 = os.getenv('MY_EMAIL2')
 
 # Import your forms from the forms.py
-from forms import CreatePostForm, RegisterForm, LoginForm, PostComment
+from forms import CreatePostForm, RegisterForm, LoginForm, PostComment, ContactMe
 
 def admin_only(f):
     @wraps(f)
@@ -248,9 +256,37 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html")
+    form = ContactMe()
+    if form.validate_on_submit():
+        # Get form data
+        from_email = form.email.data
+        name = form.name.data
+        tel = form.phone.data
+        body = form.body.data
+
+        # Create message container
+        msg = MIMEMultipart("alternative")
+        msg['From'] = MY_EMAIL
+        msg['To'] = from_email
+        msg['Subject'] = f"You have a blog contact message from {name}"
+
+        # Initialize the email body
+        email_body = []
+
+        full_email_body = ("<html><body><p>" + f"Hello Dustin, <br><br>Here is the contact message from:<br><br>"
+                                               f" {name}<br>"
+                                               f"{from_email}<br>"
+                                               f"{tel}<br><br>"
+                           + "".join(email_body)
+                           + f"{body}</p></body></html>")
+        msg.attach(MIMEText(full_email_body, "html"))
+        message = msg.as_string()
+        contact_manager.send_email(from_email=MY_EMAIL, user_email=MY_EMAIL2, message=message)
+        flash('Your message was sent.')
+        return redirect(url_for('contact'))
+    return render_template("contact.html", form=form)
 
 
 if __name__ == "__main__":

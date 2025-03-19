@@ -23,6 +23,15 @@ include "header.html" %}
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <h1>Register</h1>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
         {{render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
       </div>
     </div>
