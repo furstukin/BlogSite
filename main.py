@@ -12,10 +12,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from typing import List
 from flask_gravatar import Gravatar
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# Use for local testing only, will crash Railway
-# load_dotenv()
+load_dotenv()
 
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, PostComment
@@ -63,7 +62,7 @@ class User(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
-    password: Mapped[str] = mapped_column(String(100))
+    password: Mapped[str] = mapped_column(String(1000))
     f_name: Mapped[str] = mapped_column(String(1000))
     l_name: Mapped[str] = mapped_column(String(1000))
     posts: Mapped[List["BlogPost"]] = relationship(back_populates="user")
