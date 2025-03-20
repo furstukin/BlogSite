@@ -166,7 +166,7 @@ def logout():
 @app.route('/')
 def get_all_posts():
     result = db.session.execute(db.select(BlogPost))
-    posts = result.scalars().all()
+    posts = result.scalars().all()[::-1]  # Reverse the order of posts
     return render_template("index.html", all_posts=posts)
 
 
