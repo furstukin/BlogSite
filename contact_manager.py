@@ -2,7 +2,6 @@ import smtplib
 import os
 
 class ContactManager:
-    """This class is responsible for sending notifications with the deal flight details."""
     def __init__(self):
         self.GMAIL_APP_PW = os.getenv("GMAIL_APP_PW")
         self.connection = smtplib.SMTP("smtp.gmail.com", 587)
